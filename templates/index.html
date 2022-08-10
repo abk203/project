@@ -1,0 +1,125 @@
+{% extends "layout.html" %}
+
+{% block title %}
+index
+{% endblock %}
+
+{% block body %}
+<body style="background-color: rgb(32,38,41); background-image: none;">
+    {% endblock %}
+</body>
+    {% block main %}
+    {% if not rows %} 
+    <div class="index">Nothing stored yet!!</div>
+    {% else %}
+    <div id="popup">
+        <div class="popup_bg">
+   
+        <form action="/index" method="post">
+            
+            <div class="form">
+
+                <div class="form-elem">
+                    <p id="password" name="password" style="font-size: 1.5rem; text-align:center;"></p>
+                </div>
+
+                <div class="form-elem">
+                    Name<br><input type="text" name="password_name" id="password_name" readonly="true"> 
+                </div>
+
+                <div class="form-elem">
+                    Edit name <br><input type="text" autofocus autocomplete="off" name="name" placeholder="name" id="name">
+                </div>
+                
+                <div class="form-elem">
+                    Edit url <br> <input type="text" autocomplete="off" name="url" placeholder="Ex. google.com" id="url">
+                </div>
+                
+                <div class="form-sub" >
+                    <input type="submit" name="action" value="Save" id="sub" style="width:80px; margin-right: 10px;" onclick="send()">
+        
+                    <input type="submit" name="action" value="Delete" id="del" style="width:80px; margin-right: 10px;"> 
+                    
+                    <input type="button" name="cancel" value="Cancel" id="cancel" style="width: 90px; margin-right: 0; text-align: center;">
+                </div>
+            </div>
+            <form action="/index" method="post"> 
+                <input type="hidden" name="confirm" id="confirm"> 
+           </form>
+        </div>
+    </div>
+    </form>
+    
+    <div id="all">
+    
+    <table style="width:80%" class="table" id="table">
+        <thead>
+            <tr>
+                <th>Password</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for r in row %} 
+            <tr onclick="display()">
+                <!--length of row and pas is the same-->
+                <td>{{pas[loop.index0]}}</td>
+                <td >{{r[3]}}</td>
+                <td><a href="https://www.{{r[3]}}">{{r[4]}}</a></td>
+                <td>{{r[5]}}</td>
+            </tr>
+            {% endfor %} 
+        </tbody>
+    </table>
+</div>
+
+    <script>
+        const popup = document.getElementById("popup");
+        function display() {
+            var name_val = [];
+            var password = []
+            var table = document.getElementsByTagName("table")[0];
+            var tbody = table.getElementsByTagName("tbody")[0];
+            tbody.onclick = function (e) {
+                e = e || window.event;
+                var target = e.srcElement || e.target;
+                while (target && target.nodeName !== "TR") {
+                    target = target.parentNode;
+                }
+                if (target) {
+                    var cells = target.getElementsByTagName("td");
+                        name_val.push(cells[1].innerHTML);
+                        password.push(cells[0].innerHTML);
+                }
+                
+            
+                popup.style.display = "block";
+                document.getElementById("password").innerHTML = password;
+                document.getElementById("password_name").value = name_val;
+               var name = document.getElementById("name");
+               name.value = name_val;
+
+    
+               //document.getElementById("all").style.opacity = '0.8';
+               document.getElementById("del").addEventListener("click", function() {
+            if (confirm("Sure you want to delete " + name_val + "?") == false)
+            {
+                document.getElementById("confirm").value = "False";
+            }
+        })
+            };
+        }
+        document.getElementById("cancel").addEventListener("click", function() {
+            popup.style.display = "none";
+        })
+
+        popup.addEventListener("change", function() {
+            popup.style.d
+        })
+
+
+        </script>
+    {% endif %}
+    {% endblock %}

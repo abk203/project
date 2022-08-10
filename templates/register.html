@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+{% block title %} 
+register
+{% endblock %} 
+
+{% block main %}
+<form action="/register" method="post" id="form1">
+    <div class="mid2">
+        <div class="mid">
+            <input autofocus type="text" autocomplete="off" name="username" id="username" placeholder="Username">
+        </div>
+        <div class="mid">
+            <input autofocus type="text" autocomplete="off" name="confirmation" id="confirmation" placeholder="Confirm">
+        </div>
+        <div class="mid">
+            <input autofocus type="password" autocomplete="off" name="password" id="password" placeholder="Password">
+        </div>
+        <p id="must">*must contain at least one special character <br>
+            Both capital and small letters <br>
+            and a number
+        </p>
+        <span id="chars">
+            {% for char in special_char %} 
+            {{char}}
+            {% endfor %}
+        </span>
+        <div class="mid">
+            <input type="submit" value="Sign up" id="submit">
+        </div>
+        <p>Already have an accont?
+        <a href="/login">Log in </a>  here </p>
+    </div>
+</form> 
+
+<script>
+    document.getElementById("must").addEventListener("mouseover", function() {
+        document.getElementById("chars").style.display = "block"; 
+        document.getElementById("chars").style.display.transition = "10s";});
+
+    document.getElementById("must").addEventListener("mouseleave", function() {document.getElementById("chars").style.display = "none";});
+
+
+</script>
+{% endblock %} 

@@ -1,0 +1,39 @@
+{% extends "layout.html" %} 
+
+{% block title %} 
+Generate
+{% endblock %} 
+
+{% block main %} 
+<form action="/generate" method="post">
+    <div class="mid2">
+        <div class="mid">
+            <input autofocus type="number" name="length"  placeholder="Enter length (optional)" min="8" max="16" id="length">
+        </div>
+
+        <div class="mid">
+            <input autofocus type="text" autocomplete="off" name="name" id="name" placeholder="Name (Optional)">
+        </div>
+
+        <div class="mid">
+            <input type="text" autocomplete="off" name="description" id="description" placeholder="Domain name Ex. google.com">
+        </div>
+
+        <div class="mid">
+            <input type="submit" value="Generate" id="submit">
+        </div>
+    </div> 
+</form>
+<script> 
+    document.getElementById("submit").addEventListener("click", function() {
+        var len = document.getElementById("length").value.length;
+        if ((len) == 0)
+        {
+            if (confirm({created}) == false)
+            {
+                window.open("/generate")
+            }
+        }
+    })
+</script>
+{% endblock %} 

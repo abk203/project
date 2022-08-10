@@ -1,0 +1,81 @@
+{% extends "layout.html" %} 
+
+{% block title %} 
+Add 
+{% endblock %} 
+
+{% block main %} 
+<form action="/add" method="post">
+    <div class="mid2">
+        <div class="mid">
+            <input autofocus type="password" autocomplete="off" name="password" id="password" placeholder="Password" minlength="8" maxlength="16"> <br>
+            <progress id="progress" value="1" max="15"> </progress>
+        </div>
+        <div class="mid">
+            <input autofocus type="text" autocomplete="off" name="name" id="name" placeholder="Name">
+        </div>
+        <div class="mid">
+            <input autofocus type="text" autocomplete="off" name="description" id="description" placeholder="Domain name (if applicable)">
+        <div class="mid">
+            <input type="submit" value="Add" id="submit">
+        </div>
+</form> 
+
+<script>
+    //Display the strength of the password to be added dynamically
+    document.getElementById("password").addEventListener("keydown", function() {
+        document.getElementById("progress").style.display = "inline";
+        var len = document.getElementById("password").value.length;
+        const key = event.key;
+        if (key === "Backspace")
+        {
+            len--;
+        }
+        document.getElementById("progress").value = len;
+
+    })
+
+    //Hide the progress bar    
+    document.getElementById("password").addEventListener("change", function() {
+        document.getElementById("progress").style.display = "none";
+    })
+
+    document.getElementById("submit").addEventListener("click", function() {
+        var password = document.getElementById("password");
+        var name = document.getElementById("name");
+        //Alert box to ensure password is provided
+        if ((password.value.length) < 1)
+        {
+            if (alert("You have not provided password.") == true)
+            {
+                password.value.length = "0";
+                return 0;
+            }
+        }
+
+        
+        //Confirm box to ensure providing of name
+        if ((password.value.length) > 8 && (password.value.length) <= 16)
+        {
+            if ((name.value.length) < 1)
+            {
+                if (confirm("You have not provided name. Sure you want to continue?") == false)
+                {
+                    name.value.length = "0";
+                    return 1;
+                }
+            }
+
+            if ((password.value.length) < 8)
+        {
+            if (alert("Min length of password must be 8.") == true)
+            {
+                password.value.length = password.value.length;
+                return 1;
+            }
+        }
+        }
+    })
+    
+</script>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends "layout.html" %} 
+
+{% block title %} 
+Add 
+{% endblock %} 
+
+{% block main %} 
+<div class="password">
+<h1>
+    The generated password is <br> 
+</h1>
+<h1 id="text" style="margin-bottom: 4rem; color: white;">
+    {{created}}
+   
+    <!--img src="/static/copy.png" style="height: 40px;" alt="Copy text"-->
+</h1>
+<h4 id="h4">Do you want to save this? </h4>
+<form action="/created" method="post">
+<div class="mid">
+    <ul id="yesno">
+        <li>
+            <input type="submit" value="Yes" id="yes" name="options">
+        </li>
+        <li>
+            <input type="submit" value="No" id="no" name="options">
+        </li>
+    </ul>
+</div>
+
+</form> 
+</div>
+
+<script>
+
+   document.getElementById("yes").addEventListener("click", function() {
+    document.getElementById("inp").style.display = "block";
+    document.getElementById("yesno").style.display = "none";
+   })
+
+
+</script>
+{% endblock %}
